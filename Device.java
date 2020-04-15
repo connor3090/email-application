@@ -3,15 +3,16 @@ import java.util.Scanner;
 public class Device {
 
     public String[] lrInputs = {"login", "register"};
-    public String currentAccount = "";
+    public Account currentAccount;
     public Server server = new Server();
+    public Scanner in = new Scanner(System.in);
     // Constructor
     public Device() {
 
     }
 
-    public void loginOrRegister() {
-        Scanner in = new Scanner(System.in);
+    // Returns true if the user logs into an account. Returns false otherwise
+    public boolean loginOrRegister() {
         System.out.print("Enter either 'login' or 'register': ");
         String lrInput = in.nextLine();
         while(!validateInput(lrInput, this.lrInputs)) {
@@ -21,8 +22,13 @@ public class Device {
 
         if (lrInput.equals("register")) {
             registerAccount();
+            
         }
-
+        else {
+            login();
+            return true;
+        }
+        return false;
     }
 
     // Takes an input string and returns true if that string is in the validInputs array, returns false if not
@@ -57,5 +63,35 @@ public class Device {
         this.server.register(newAccountName, newPassword);
         System.out.println("Successfully registered new account");
         return true;
+    }
+
+    // Logs the user into their account by setting the currentAccount variable to the users account
+    public boolean login() {
+        System.out.print("Please enter your account name: ");
+        String accountName = in.nextLine();
+        
+        while(!server.validateAccountName(accountName)) {
+            if (accountName.equals("quit")) {
+                return false;
+            }
+            System.out.print("Invalid account name. Please enter your account name: ");
+            accountName = in.nextLine();
+        }
+
+        System.out.print("Please enter your password: ");
+        String password = in.nextLine();
+        Account log = server.login(accountName, password);
+        while (log == null) {
+            if (password.equals("quit")) {
+                return false;
+            }
+            System.out.print("Please enter your password");
+            password = in.nextLine();
+            log = server.login(accountName, password);
+        }
+        this.currentAccount = log;
+        System.out.println("Successfully logged into account " + accountName);
+        return true;
+
     }
 }
