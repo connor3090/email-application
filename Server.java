@@ -12,8 +12,8 @@ public class Server {
 
     // Registers the user's account by storing their account name and password in the loginInfo hashmap. Will create an Account object for them as well
     public boolean register(String accountName, String password) {
-        if (loginInfo.containsKey(accountName)) {
-            System.out.println("Account already exists.");
+        if (validateAccountName(accountName)) {
+            System.out.println("Account already exists or is invalid.");
             return false;
         }
         else {

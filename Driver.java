@@ -23,7 +23,7 @@ public class Driver {
                     running = false;
                     break;
                 default:
-                    //System.out.println("Invalid option.");
+                    System.out.println("Invalid option.");
             }
 
             while (loggedIn) {

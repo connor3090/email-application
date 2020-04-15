@@ -43,7 +43,6 @@ public class Device {
 
     // Registers a new account to the server
     public boolean registerAccount() {
-        Scanner in = new Scanner(System.in);
         System.out.print("Enter your desired account name: ");
         String newAccountName = in.nextLine();
         while (server.validateAccountName(newAccountName)) {
@@ -92,6 +91,11 @@ public class Device {
         this.currentAccount = log;
         System.out.println("Successfully logged into account " + accountName);
         return true;
+
+    }
+
+    // Walks the user through creating an email
+    public void composeEmail() {
 
     }
 }
