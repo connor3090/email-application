@@ -1,1 +1,1 @@
-You can currently register an account and login to that account. Nothing is saved after quiting. Compile and run Driver.java to run the application.
+You can currently register an account and login to that account. Nothing is saved after quitting. Compile and run Driver.java to run the application.
