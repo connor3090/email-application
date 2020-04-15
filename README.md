@@ -1,0 +1,1 @@
+You can currently register an account, but you can't login or do anything. Compile and run Driver.java to run the application.
