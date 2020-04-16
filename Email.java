@@ -16,7 +16,7 @@ public class Email {
     }
 
     public String toString() {
-        String out = "/n--------------------/n";
+        String out = "\n--------------------\n";
         out += "From: " + author + "\n";
         out += "Recipients: ";
         for (int i = 0; i < recipients.size(); i++) {
@@ -28,7 +28,7 @@ public class Email {
         }
         out += "\nSubject: " + subject;
         out += "\n\n" + content;
-        out += "\n\n--------------------";
+        out += "\n\n--------------------\n\n";
         return out;
     }
 }

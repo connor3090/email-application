@@ -17,7 +17,7 @@ public class Driver {
                     break;
                 case "lr":
                     loggedIn = d.loginOrRegister();
-                    loggedIn = true;
+                    
                     break;
                 case "quit":
                     running = false;
@@ -35,7 +35,17 @@ public class Driver {
                         help("loginPage");
                         break;
                     case "logout":
+                        d.logout();
                         loggedIn = false;
+                        break;
+                    case "compose":
+                        d.composeEmail();
+                        break;
+                    case "inbox":
+                        d.viewInbox();
+                        break;
+                    case "sent":
+                        d.viewSent();
                         break;
 
                 }
@@ -55,6 +65,8 @@ public class Driver {
             case "loginPage":
                 System.out.println("Enter 'logout' to log out of your account.");
                 System.out.println("Enter 'compose' to create an email.");
+                System.out.println("Enter 'inbox' to view your inbox.");
+                System.out.println("Enter 'sent' to view your sent folder.");
                 break;
         }
         

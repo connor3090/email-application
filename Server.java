@@ -40,6 +40,11 @@ public class Server {
         }
     }
 
+    // Logs user out of account
+    public void logout(Account account) {
+        accountInfo.replace(account.accountName, account);
+    }
+
     // Checks if the account name exists. Returns true if the account exists, false if not
     public boolean validateAccountName(String accountName) {
         if (accountName == "quit") {
@@ -47,4 +52,30 @@ public class Server {
         }
         return loginInfo.containsKey(accountName);
     } 
+
+    // Adds the email to all recipients and cc inboxes
+    public void sendEmail(Email e) {
+        Account recipient;
+        String accountName;
+        for (int i = 0; i < e.recipients.size(); i++) {
+            accountName = e.recipients.get(i);
+            if (validateAccountName(accountName)) {
+                recipient = accountInfo.get(accountName);
+                recipient.addToInbox(e);
+                accountInfo.replace(accountName, recipient);
+            }
+            
+        }
+
+        if (e.cc.size() > 0) {
+            for (int i = 0; i < e.cc.size(); i++) {
+                accountName = e.cc.get(i);
+                if (validateAccountName(accountName)) {
+                    recipient = accountInfo.get(accountName);
+                    recipient.addToInbox(e);
+                    accountInfo.replace(accountName, recipient);
+                }
+            }
+        }
+    }
 }

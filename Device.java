@@ -1,14 +1,21 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Device {
 
     public String[] lrInputs = {"login", "register"};
-    public Account currentAccount;
+    public Account currentAccount = null;
     public Server server = new Server();
     public Scanner in = new Scanner(System.in);
     // Constructor
     public Device() {
 
+    }
+
+    // Quickly registers two accounts for testing purposes
+    public void registerTestAccounts() {
+        server.register("test1", "test1");
+        server.register("test2", "test2");
     }
 
     // Returns true if the user logs into an account. Returns false otherwise
@@ -94,8 +101,79 @@ public class Device {
 
     }
 
+    // Logs the user out of their account
+    public void logout() {
+        if (currentAccount == null) {
+            System.out.println("You are not logged in to an account.");
+            return;
+        }
+
+        server.logout(currentAccount);
+        currentAccount = null;
+    }
+
     // Walks the user through creating an email
     public void composeEmail() {
+        String author = currentAccount.accountName;
+        ArrayList<String> recipients = new ArrayList<String>();
+        ArrayList<String> cc = new ArrayList<String>();
+        String subject;
+        String content;
+        String option;
 
+        System.out.print("Please enter a recipient: ");
+        recipients.add(in.nextLine());
+        System.out.print("Would you like to add another recipient? (yes or no): ");
+        option = in.nextLine();
+        while (option.equals("yes")) {
+            System.out.print("Please enter a recipient: ");
+            recipients.add(in.nextLine());
+            System.out.print("Would you like to add another recipient? (yes or no): ");
+            option = in.nextLine();
+        }
+
+        System.out.print("Would you like to add a cc? (yes or no): ");
+        option = in.nextLine();
+        while (option.equals("yes")) {
+            System.out.print("Please enter a cc: ");
+            cc.add(in.nextLine());
+            System.out.print("Would you like to add another cc? (yes or no): ");
+            option = in.nextLine();
+        }
+
+        System.out.print("Please enter a subject: ");
+        subject = in.nextLine();
+
+        System.out.print("Please enter the content of your email: ");
+        content = in.nextLine();
+
+        Email newEmail = new Email(author, recipients, cc, subject, content);
+
+        System.out.print("Enter either 'send', 'save', or 'delete': ");
+        option = in.nextLine();
+        while (!option.equals("send") && !option.equals("save") && !option.equals("delete")) {
+            System.out.print("Invalid option. Either enter 'send', 'save', or 'delete': ");
+            option = in.nextLine();
+        }
+        switch(option) {
+            case "send":
+                currentAccount.addToSent(newEmail);
+                // Server sends email
+                server.sendEmail(newEmail);
+                break;
+            case "save":
+                currentAccount.addToDrafts(newEmail);
+                break;
+            case "delete":
+                return;
+        }
+    }
+
+    public void viewInbox() {
+        currentAccount.viewInbox();
+    }
+
+    public void viewSent() {
+        currentAccount.viewSent();
     }
 }
