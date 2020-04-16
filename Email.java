@@ -15,6 +15,13 @@ public class Email {
         this.content = content;
     }
 
+    public String getHeader() {
+        String out = "";
+        out += "From: " + author;
+        out += "\nSubject: " + subject;
+        return out;
+    }
+
     public String toString() {
         String out = "\n--------------------\n";
         out += "From: " + author + "\n";
