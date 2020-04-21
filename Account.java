@@ -46,16 +46,18 @@ public class Account {
         viewHeaders(sent);
     }
 
-    public void selectEmail() {
+    public Email selectEmail(ArrayList<Email> folder) {
         int input = 0;
         System.out.print("Please select an email by inputting the number: ");
         input = Integer.parseInt(in.nextLine());
-        while (input > inbox.size() || input <= 0) {
+        while (input > folder.size() || input <= 0) {
             System.out.print("Invalid input. Please select an email: ");
             input = Integer.parseInt(in.nextLine());
         }
-        Email e = inbox.get(--input);
-        System.out.print(e.toString());
+        int select = folder.size() - input;
+        Email e = folder.get(select);
+        System.out.print(e);
+        return e;
 
     }
 }

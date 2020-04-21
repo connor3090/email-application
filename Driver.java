@@ -47,9 +47,7 @@ public class Driver {
                     case "sent":
                         d.viewSent();
                         break;
-                    case "print":
-                        d.printEmail();
-                        break;
+
                 }
 
             }
@@ -69,7 +67,6 @@ public class Driver {
                 System.out.println("Enter 'compose' to create an email.");
                 System.out.println("Enter 'inbox' to view your inbox.");
                 System.out.println("Enter 'sent' to view your sent folder.");
-                System.out.println("Enter 'print' to print the contents of an email.");
                 break;
         }
         

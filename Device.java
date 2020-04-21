@@ -176,8 +176,4 @@ public class Device {
     public void viewSent() {
         currentAccount.viewSent();
     }
-
-    public void printEmail() {
-        currentAccount.selectEmail();
-    }
 }
