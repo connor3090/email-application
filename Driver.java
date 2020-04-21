@@ -5,7 +5,10 @@ public class Driver {
         Device d = new Device();
         Boolean running = true;
         Boolean loggedIn = false;
+        Boolean viewingInbox = false;
+        Boolean viewingSent = false;
         String option = "";
+        Email selectedEmail;
 
         while (running){
             System.out.print("Please enter an option (type 'help' for options): ");
@@ -42,11 +45,38 @@ public class Driver {
                         d.composeEmail();
                         break;
                     case "inbox":
+                        viewingInbox = true;
                         d.viewInbox();
+                        while (viewingInbox) {
+                            System.out.print("You are currently viewing your inbox. Enter 'select' or 'quit': ");
+                            option = in.nextLine();
+                            switch(option) {
+                                case "quit":
+                                    viewingInbox = false;
+                                    break;
+                                case "select":
+                                    selectedEmail = d.currentAccount.selectEmail("inbox");
+                                    System.out.print("Enter either 'reply' or 'quit': ");
+                                    option = in.nextLine();
+                                    switch(option) {
+                                        case ("reply"):
+                                            d.reply(selectedEmail);
+                                            break;
+                                        case ("quit"):
+                                            break;
+                                        default:
+                                            break;
+                                    }
+
+                            }
+                        }
                         break;
                     case "sent":
                         d.viewSent();
                         break;
+                    default:
+                        System.out.print("Invalid option.");
+                        
 
                 }
 

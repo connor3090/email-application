@@ -169,6 +169,54 @@ public class Device {
         }
     }
 
+    // Walks the user through creating an email
+    public void reply(Email e) {
+        String author = currentAccount.accountName;
+        ArrayList<String> recipients = new ArrayList<String>();
+        ArrayList<String> cc = new ArrayList<String>();
+        String subject;
+        String content;
+        String option;
+
+        // Set recipients, cc, and subject to the same as the email to reply to
+        recipients.add(e.author);
+        cc = e.cc;
+        subject = e.subject;
+
+        System.out.print("Would you like to add a cc? (yes or no): ");
+        option = in.nextLine();
+        while (option.equals("yes")) {
+            System.out.print("Please enter a cc: ");
+            cc.add(in.nextLine());
+            System.out.print("Would you like to add another cc? (yes or no): ");
+            option = in.nextLine();
+        }
+
+        System.out.print("Please enter the content of your email: ");
+        content = in.nextLine();
+
+        Email newEmail = new Email(author, recipients, cc, subject, content);
+
+        System.out.print("Enter either 'send', 'save', or 'delete': ");
+        option = in.nextLine();
+        while (!option.equals("send") && !option.equals("save") && !option.equals("delete")) {
+            System.out.print("Invalid option. Either enter 'send', 'save', or 'delete': ");
+            option = in.nextLine();
+        }
+        switch (option) {
+            case "send":
+                currentAccount.addToSent(newEmail);
+                // Server sends email
+                server.sendEmail(newEmail);
+                break;
+            case "save":
+                currentAccount.addToDrafts(newEmail);
+                break;
+            case "delete":
+                return;
+        }
+    }
+
     public void viewInbox() {
         currentAccount.viewInbox();
     }

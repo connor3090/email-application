@@ -29,7 +29,7 @@ public class Account {
             for (int i = folder.size()-1; i >= 0; i--) {
                 System.out.print("\n--------------------\n");
                 System.out.print(count + "\n");
-                System.out.print(folder.get(0).getHeader());
+                System.out.print(folder.get(i).getHeader());
                 System.out.print("\n--------------------\n\n");
             }
         }
@@ -46,8 +46,17 @@ public class Account {
         viewHeaders(sent);
     }
 
-    public Email selectEmail(ArrayList<Email> folder) {
+    public Email selectEmail(String folderName) {
         int input = 0;
+        ArrayList<Email> folder = new ArrayList<Email>();
+        switch(folderName) {
+            case "inbox":
+                folder = inbox;
+                break;
+            case "sent":
+                folder = sent;
+                break;
+        }
         System.out.print("Please select an email by inputting the number: ");
         input = Integer.parseInt(in.nextLine());
         while (input > folder.size() || input <= 0) {
