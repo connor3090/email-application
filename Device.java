@@ -32,8 +32,8 @@ public class Device {
             
         }
         else {
-            login();
-            return true;
+            boolean loggedIn = login();
+            return loggedIn;
         }
         return false;
     }
